@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebStore - Catalogo Prodotti</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- NAVBAR CON INTESTAZIONE E TITOLO DESCRITTIVO -->
+<header class="navbar">
+    <div class="nav-brand">
+        <h1>WebStore</h1>
+        <p class="nav-subtitle">Il tuo negozio online di elettronica, libri e abbigliamento</p>
+    </div>
+
+    <!-- Barra di ricerca -->
+    <form class="nav-search" id="search-form">
+        <input type="text" id="search-input" placeholder="Cerca prodotti..." aria-label="Cerca prodotti">
+        <button type="submit">Cerca</button>
+    </form>
+
+    <!-- Navigazione utente e Carrello con Badge -->
+    <div class="nav-user">
+        <span>Ciao, <strong>Mario Rossi</strong></span>
+        <nav class="nav-links">
+            <a href="#">Profilo</a>
+            <a href="#">I miei ordini</a>
+            <a href="carrello.html" class="cart-link">
+                Carrello <span id="cart-badge" class="badge">0</span>
+            </a>
+            <a href="login.html">Esci</a>
+        </nav>
+    </div>
+</header>
+
+<!-- CORPO PRINCIPALE (FILTRI A SINISTRA + CATALOGO) -->
+<div class="main-layout">
+
+    <!-- SIDEBAR SINISTRA: FILTRI -->
+    <aside class="sidebar">
+        <h3>Filtri</h3>
+
+        <!-- Selezione Categoria (File XML corrispondente) -->
+        <div class="filter-group">
+            <label for="category-filter">Categoria:</label>
+            <select id="category-filter">
+                <option value="elettronica" selected>Elettronica</option>
+                <option value="libri">Libri</option>
+                <option value="abbigliamento">Abbigliamento</option>
+            </select>
+        </div>
+
+        <!-- Ordinamento -->
+        <div class="filter-group">
+            <label for="sort-filter">Ordina per:</label>
+            <select id="sort-filter">
+                <option value="default">Predefinito</option>
+                <option value="price-asc">Prezzo: dal più basso</option>
+                <option value="price-desc">Prezzo: dal più alto</option>
+                <option value="name-asc">Nome: A - Z</option>
+                <option value="name-desc">Nome: Z - A</option>
+            </select>
+        </div>
+
+        <!-- Filtro Preferiti -->
+        <div class="filter-group filter-checkbox">
+            <label>
+                <input type="checkbox" id="favorites-toggle"> Mostra solo preferiti
+            </label>
+        </div>
+
+        <button type="button" id="btn-reset-filters" class="btn-reset">Azzera filtri</button>
+    </aside>
+
+    <!-- CATALOGO PRODOTTI A TUTTA LARGHEZZA -->
+    <div class="catalog-container">
+        <main id="products" class="product-grid">
+            <!-- Popolato dinamicamente via AJAX -->
+        </main>
+    </div>
+
+</div>
+
+<!-- FINESTRA MODALE DETTAGLI PRODOTTO -->
+<dialog id="modal-info">
+    <h3 id="modal-info-title">Titolo Prodotto</h3>
+    <img id="modal-info-img" src="" alt="Dettaglio Prodotto">
+    <p><strong>Marca: </strong><span id="modal-info-brand"></span></p>
+    <p id="modal-info-desc">Descrizione dettagliata.</p>
+    <p><strong>Prezzo: </strong>€ <span id="modal-info-price"></span></p>
+    <p><strong>Disponibilità: </strong><span id="modal-info-stock"></span></p>
+
+    <div class="modal-actions">
+        <button type="button" id="btn-modal-add" class="btn-add">Aggiungi al carrello</button>
+        <button type="button" id="btn-close-info">Chiudi</button>
+    </div>
+</dialog>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <p>&copy; 2026 WebStore S.R.L. - Tutti i diritti riservati.</p>
+    <p><small>Primo rilascio WSDA A.A. 2026-27</small></p>
+</footer>
+
+<!-- SCRIPT -->
+<script src="js/jquery-4.0.0.min.js"></script>
+<script src="js/prodotti.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prodotti categoria="abbigliamento"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="prodotti-schema.xsd">
+    <prodotto>
+        <id>201</id>
+        <nome>Giacca a Vento Impermeabile</nome>
+        <descrizione>Giacca tecnica leggera con cappuccio regolabile, antivento e resistente all'acqua.</descrizione>
+        <prezzo>79.99</prezzo>
+        <marca>NordicPeak</marca>
+        <immagine>https://placehold.co/400x300?text=Giacca+Vento</immagine>
+        <disponibilita>Disponibile</disponibilita>
+    </prodotto>
+    <prodotto>
+        <id>202</id>
+        <nome>Felpa con Cappuccio Casual</nome>
+        <descrizione>Felpa in cotone felpato morbido con tasca a marsupio e polsini elasticizzati.</descrizione>
+        <prezzo>39.50</prezzo>
+        <marca>UrbanStyle</marca>
+        <immagine>https://placehold.co/400x300?text=Felpa+Cappuccio</immagine>
+        <disponibilita>Disponibile</disponibilita>
+    </prodotto>
+    <prodotto>
+        <id>203</id>
+        <nome>Pantaloni Chino Slim Fit</nome>
+        <descrizione>Pantaloni eleganti in cotone elasticizzato, adatti sia per lavoro che per tempo libero.</descrizione>
+        <prezzo>49.00</prezzo>
+        <marca>ClassicMan</marca>
+        <immagine>https://placehold.co/400x300?text=Pantaloni+Chino</immagine>
+        <disponibilita>In arrivo</disponibilita>
+    </prodotto>
+    <prodotto>
+        <id>204</id>
+        <nome>T-Shirt Cotone Organico</nome>
+        <descrizione>Maglietta girocollo a tinta unita realizzata in 100% cotone biologico traspirante.</descrizione>
+        <prezzo>15.00</prezzo>
+        <marca>EcoWear</marca>
+        <immagine>https://placehold.co/400x300?text=T-Shirt+Cotone</immagine>
+        <disponibilita>Disponibile</disponibilita>
+    </prodotto>
+    <prodotto>
+        <id>205</id>
+        <nome>Scarpe da Ginnastica Running</nome>
+        <descrizione>Calzature sportive traspiranti con suola ammortizzata per massima comodità durante la corsa.</descrizione>
+        <prezzo>65.00</prezzo>
+        <marca>SpeedStep</marca>
+        <immagine>https://placehold.co/400x300?text=Scarpe+Running</immagine>
+        <disponibilita>Esaurito</disponibilita>
+    </prodotto>
+</prodotti>

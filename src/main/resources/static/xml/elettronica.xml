@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prodotti categoria="elettronica"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="prodotti-schema.xsd">
+    <prodotto>
+        <id>1</id>
+        <nome>Smartphone Pro Max</nome>
+        <descrizione>Smartphone con display OLED da 6.7 pollici, tripla fotocamera e autonomia fino a 24 ore.</descrizione>
+        <prezzo>899.99</prezzo>
+        <marca>TechNova</marca>
+        <immagine>https://placehold.co/400x300?text=Smartphone+Pro</immagine>
+        <disponibilita>Disponibile</disponibilita>
+    </prodotto>
+    <prodotto>
+        <id>2</id>
+        <nome>Cuffie Wireless ANC</nome>
+        <descrizione>Cuffie Bluetooth over-ear con cancellazione attiva del rumore e audio ad alta risoluzione.</descrizione>
+        <prezzo>89.90</prezzo>
+        <marca>SoundWave</marca>
+        <immagine>https://placehold.co/400x300?text=Cuffie+Wireless</immagine>
+        <disponibilita>Disponibile</disponibilita>
+    </prodotto>
+    <prodotto>
+        <id>3</id>
+        <nome>Laptop Ultra 15</nome>
+        <descrizione>Portatile sottile e leggero con SSD da 512GB, 16GB RAM e display antiriflesso Full HD.</descrizione>
+        <prezzo>749.00</prezzo>
+        <marca>Computex</marca>
+        <immagine>https://placehold.co/400x300?text=Laptop+Ultra</immagine>
+        <disponibilita>In arrivo</disponibilita>
+    </prodotto>
+    <prodotto>
+        <id>4</id>
+        <nome>Mouse Ergonomico</nome>
+        <descrizione>Mouse ottico senza fili con sensore regolabile e impugnatura ergonomica per ufficio.</descrizione>
+        <prezzo>24.50</prezzo>
+        <marca>ClickPro</marca>
+        <immagine>https://placehold.co/400x300?text=Mouse+Ergonomico</immagine>
+        <disponibilita>Disponibile</disponibilita>
+    </prodotto>
+    <prodotto>
+        <id>5</id>
+        <nome>Monitor Gaming 27</nome>
+        <descrizione>Schermo curvo da 27 pollici con frequenza di aggiornamento a 165Hz e tempo di risposta 1ms.</descrizione>
+        <prezzo>229.99</prezzo>
+        <marca>ViewMaster</marca>
+        <immagine>https://placehold.co/400x300?text=Monitor+Gaming</immagine>
+        <disponibilita>Esaurito</disponibilita>
+    </prodotto>
+</prodotti>

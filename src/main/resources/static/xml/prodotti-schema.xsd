@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!-- ==================== TIPI SEMPLICI ==================== -->
+    <xs:simpleType name="IdType">
+        <xs:restriction base="xs:positiveInteger"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="PrezzoType">
+        <xs:restriction base="xs:decimal">
+            <xs:minInclusive value="0.01"/>
+            <xs:fractionDigits value="2"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="NonEmptyString">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="DisponibilitaType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Disponibile"/>
+            <xs:enumeration value="In arrivo"/>
+            <xs:enumeration value="Esaurito"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="CategoriaType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="elettronica"/>
+            <xs:enumeration value="libri"/>
+            <xs:enumeration value="abbigliamento"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- ==================== TIPI COMPLESSI ==================== -->
+    <xs:complexType name="ProdottoType">
+        <xs:sequence>
+            <xs:element name="id"            type="IdType"/>
+            <xs:element name="nome"          type="NonEmptyString"/>
+            <xs:element name="descrizione"   type="NonEmptyString"/>
+            <xs:element name="prezzo"        type="PrezzoType"/>
+            <xs:element name="marca"         type="NonEmptyString"/>
+            <xs:element name="immagine"      type="xs:anyURI"/>
+            <xs:element name="disponibilita" type="DisponibilitaType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ProdottiType">
+        <xs:sequence>
+            <xs:element name="prodotto" type="ProdottoType" minOccurs="5" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="categoria" type="CategoriaType" use="required"/>
+    </xs:complexType>
+
+    <!-- ==================== ROOT ELEMENT CON VINCOLO UNICITÀ ==================== -->
+    <xs:element name="prodotti" type="ProdottiType">
+        <xs:unique name="uniqueProdottoId">
+            <xs:selector xpath="prodotto"/>
+            <xs:field xpath="id"/>
+        </xs:unique>
+    </xs:element>
+
+</xs:schema>

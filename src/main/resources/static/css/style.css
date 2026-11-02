@@ -143,9 +143,22 @@ select:focus {
     margin-bottom: 24px;
 }
 
+.nav-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
 .nav-brand h1 {
     font-size: 20px;
     color: var(--primary);
+    line-height: 1.2;
+}
+
+.nav-subtitle {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin: 0;
 }
 
 .nav-search {
@@ -167,6 +180,23 @@ select:focus {
 .nav-links a {
     margin-left: 12px;
     color: var(--text);
+}
+
+.cart-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+}
+
+.badge {
+    background-color: var(--primary);
+    color: #fff;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 2px 7px;
+    border-radius: 12px;
+    line-height: 1;
 }
 
 .footer {
@@ -269,6 +299,14 @@ select:focus {
     cursor: pointer;
 }
 
+.product-card .brand {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
 .product-card .desc {
     font-size: 13px;
     color: var(--text-muted);
@@ -281,9 +319,23 @@ select:focus {
     color: var(--primary);
 }
 
-.product-card .stock {
+.product-card .availability {
     font-size: 12px;
-    color: var(--text-muted);
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+/* Colori semantici per lo stato di disponibilità */
+.availability.disponibile {
+    color: #16a34a;
+}
+
+.availability.in-arrivo {
+    color: #d97706;
+}
+
+.availability.esaurito {
+    color: var(--danger);
 }
 
 .card-actions {
@@ -296,6 +348,16 @@ select:focus {
     flex: 1;
     font-size: 12px;
     padding: 6px 8px;
+}
+
+.btn-detail {
+    background-color: #f8fafc;
+    border-color: var(--border);
+    color: var(--text);
+}
+
+.btn-detail:hover {
+    background-color: #e2e8f0;
 }
 
 .btn-fav.is-favorite {
@@ -312,94 +374,6 @@ select:focus {
     border: 1px dashed var(--border);
     border-radius: var(--radius);
     color: var(--text-muted);
-}
-
-.load-more-container {
-    text-align: center;
-    margin: 24px 0;
-}
-
-/* ==========================================================================
-   6. CARRELLO: PANNELLO LATERALE (Sticky)
-   ========================================================================== */
-.cart-panel {
-    width: 280px;
-    background-color: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px;
-    position: sticky;
-    top: 20px;
-    flex-shrink: 0;
-}
-
-.cart-panel h3 {
-    font-size: 16px;
-    margin-bottom: 12px;
-    padding-bottom: 6px;
-    border-bottom: 2px solid var(--primary);
-}
-
-.cart-empty-msg {
-    color: var(--text-muted);
-    font-size: 13px;
-    text-align: center;
-    padding: 20px 0;
-}
-
-.cart-row {
-    padding: 8px 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 13px;
-}
-
-.cart-row-header {
-    display: flex;
-    justify-content: space-between;
-    font-weight: 600;
-}
-
-.cart-row-remove,
-.btn-remove-item {
-    background: none;
-    border: none;
-    color: var(--danger);
-    cursor: pointer;
-    font-size: 13px;
-}
-
-.cart-row-meta {
-    color: var(--text-muted);
-    font-size: 12px;
-    margin: 2px 0 6px 0;
-}
-
-.cart-row-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.cart-row-subtotal {
-    font-weight: bold;
-    color: var(--primary);
-}
-
-.cart-panel-footer {
-    margin-top: 12px;
-    padding-top: 10px;
-    border-top: 1px solid var(--border);
-}
-
-.cart-total-text {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    font-weight: 600;
-}
-
-#btn-cart-checkout {
-    width: 100%;
 }
 
 /* ==========================================================================

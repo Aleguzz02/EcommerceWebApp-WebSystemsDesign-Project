@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prodotti categoria="libri"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="prodotti-schema.xsd">
+    <prodotto>
+        <id>101</id>
+        <nome>Dune</nome>
+        <descrizione>Capolavoro della fantascienza ambientato sul pianeta desertico Arrakis, scritto da Frank Herbert.</descrizione>
+        <prezzo>18.50</prezzo>
+        <marca>Fanucci Editore</marca>
+        <immagine>https://placehold.co/400x300?text=Dune</immagine>
+        <disponibilita>Disponibile</disponibilita>
+    </prodotto>
+    <prodotto>
+        <id>102</id>
+        <nome>1984</nome>
+        <descrizione>Il celebre romanzo distopico di George Orwell sulla sorveglianza e il controllo del Grande Fratello.</descrizione>
+        <prezzo>12.00</prezzo>
+        <marca>Mondadori</marca>
+        <immagine>https://placehold.co/400x300?text=1984</immagine>
+        <disponibilita>Disponibile</disponibilita>
+    </prodotto>
+    <prodotto>
+        <id>103</id>
+        <nome>Il Signore degli Anelli</nome>
+        <descrizione>L'epica saga fantasy creata da J.R.R. Tolkien, raccolta in edizione integrale con mappe illustrate.</descrizione>
+        <prezzo>32.00</prezzo>
+        <marca>Bompiani</marca>
+        <immagine>https://placehold.co/400x300?text=Signore+Anelli</immagine>
+        <disponibilita>In arrivo</disponibilita>
+    </prodotto>
+    <prodotto>
+        <id>104</id>
+        <nome>Fondazione</nome>
+        <descrizione>Il primo capitolo del monumentale ciclo galattico di Isaac Asimov sulla psicostoria.</descrizione>
+        <prezzo>14.50</prezzo>
+        <marca>Mondadori</marca>
+        <immagine>https://placehold.co/400x300?text=Fondazione</immagine>
+        <disponibilita>Disponibile</disponibilita>
+    </prodotto>
+    <prodotto>
+        <id>105</id>
+        <nome>Cronache del Ghiaccio e del Fuoco</nome>
+        <descrizione>Intrighi e battaglie per il trono dei Sette Regni nel romanzo d'esordio di George R.R. Martin.</descrizione>
+        <prezzo>19.90</prezzo>
+        <marca>Mondadori</marca>
+        <immagine>https://placehold.co/400x300?text=Ghiaccio+e+Fuoco</immagine>
+        <disponibilita>Disponibile</disponibilita>
+    </prodotto>
+</prodotti>

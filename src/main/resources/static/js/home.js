@@ -301,7 +301,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (btnLoadMore) {
         btnLoadMore.addEventListener("click", () => {
-            loadProductsFromXML("data/products-data2.xml", () => {
+            loadProductsFromXML("data/libri.xml", () => {
                 btnLoadMore.disabled = true;
                 btnLoadMore.textContent = "Tutti i prodotti caricati";
             });
@@ -309,6 +309,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Caricamento iniziale
-    loadProductsFromXML("data/products-data1.xml");
+    loadProductsFromXML("data/elettronica.xml");
     renderCart();
 });
