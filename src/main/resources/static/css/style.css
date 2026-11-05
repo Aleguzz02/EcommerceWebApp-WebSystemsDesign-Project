@@ -56,11 +56,7 @@ button:hover {
 
 /* Pulsanti Primari */
 button.btn-add,
-.btn-checkout,
-.btn-confirm-order,
-.btn-continue,
-#btn-cart-checkout,
-.auth-container button {
+.btn-checkout {
     background-color: var(--primary);
     border-color: var(--primary);
     color: #fff;
@@ -68,11 +64,7 @@ button.btn-add,
 }
 
 button.btn-add:hover,
-.btn-checkout:hover,
-.btn-confirm-order:hover,
-.btn-continue:hover,
-#btn-cart-checkout:hover:not(:disabled),
-.auth-container button:hover {
+.btn-checkout:hover {
     background-color: var(--primary-hover);
 }
 
@@ -85,8 +77,6 @@ button:disabled {
 
 /* Input e Select Standard */
 input[type="text"],
-input[type="email"],
-input[type="password"],
 input[type="number"],
 select {
     width: 100%;
@@ -247,18 +237,6 @@ select:focus {
     margin-bottom: 4px;
 }
 
-.filter-checkbox label {
-    font-weight: normal;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-}
-
-.filter-checkbox input {
-    width: auto;
-}
-
 .btn-reset {
     width: 100%;
 }
@@ -360,12 +338,6 @@ select:focus {
     background-color: #e2e8f0;
 }
 
-.btn-fav.is-favorite {
-    background-color: #fee2e2;
-    border-color: var(--danger);
-    color: var(--danger);
-}
-
 .no-results {
     grid-column: 1 / -1;
     text-align: center;
@@ -377,7 +349,7 @@ select:focus {
 }
 
 /* ==========================================================================
-   7. PAGINA CARRELLO ESTESA (carrello.html)
+   6. PAGINA CARRELLO (carrello.html)
    ========================================================================== */
 .cart-layout {
     display: flex;
@@ -479,7 +451,7 @@ select:focus {
 }
 
 /* ==========================================================================
-   8. MODALI (<dialog>)
+   7. MODALI (<dialog>)
    ========================================================================== */
 dialog {
     margin: auto;
@@ -506,87 +478,4 @@ dialog img {
     display: flex;
     gap: 8px;
     margin-top: 14px;
-}
-
-/* ==========================================================================
-   9. AUTH, CHECKOUT E CONFERMA
-   ========================================================================== */
-.auth-container,
-.checkout-layout,
-.confirm-card {
-    background-color: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 24px;
-}
-
-.auth-container {
-    max-width: 380px;
-    margin: 50px auto;
-}
-
-.auth-container button {
-    width: 100%;
-    margin-top: 8px;
-}
-
-.checkout-layout {
-    max-width: 700px;
-    margin: 0 auto;
-}
-
-.checkout-section {
-    margin-bottom: 18px;
-    padding-bottom: 14px;
-    border-bottom: 1px solid var(--border);
-}
-
-.form-group {
-    margin-bottom: 12px;
-}
-
-.form-row {
-    display: flex;
-    gap: 10px;
-}
-
-.flex-1 { flex: 1; }
-.flex-2 { flex: 2; }
-
-.payment-options {
-    display: flex;
-    gap: 16px;
-    margin: 10px 0;
-}
-
-.radio-label {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 14px;
-    cursor: pointer;
-}
-
-.card-details {
-    background-color: #f8fafc;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 12px;
-}
-
-.checkout-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 16px;
-}
-
-.confirm-container {
-    max-width: 500px;
-    margin: 40px auto;
-    text-align: center;
-}
-
-.confirm-actions {
-    margin-top: 20px;
 }

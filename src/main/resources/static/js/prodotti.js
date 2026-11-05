@@ -4,27 +4,16 @@ document.addEventListener("DOMContentLoaded", function () {
     // ==========================================================================
     let productList = [];
     let cart = [];
-    let favorites = [];
     let currentModalProductId = null;
 
-    // Recupero carrello da localStorage per mantenere il badge aggiornato
+    // Recupero carrello da sessionStorage per mantenere il badge aggiornato
     try {
-        const savedCart = localStorage.getItem("cart");
+        const savedCart = sessionStorage.getItem("cart");
         cart = savedCart ? JSON.parse(savedCart) : [];
         if (!Array.isArray(cart)) cart = [];
     } catch (e) {
         console.warn("Cart non leggibile da localStorage:", e);
         cart = [];
-    }
-
-    // Recupero preferiti da localStorage
-    try {
-        const savedFavorites = localStorage.getItem("favorites");
-        favorites = savedFavorites ? JSON.parse(savedFavorites) : [];
-        if (!Array.isArray(favorites)) favorites = [];
-    } catch (e) {
-        console.warn("Favorites non leggibili da localStorage:", e);
-        favorites = [];
     }
 
     // ==========================================================================
@@ -38,7 +27,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const $searchInput = $("#search-input");
     const $categoryFilter = $("#category-filter");
     const $sortFilter = $("#sort-filter");
-    const $favoritesToggle = $("#favorites-toggle");
     const btnResetFilters = document.getElementById("btn-reset-filters");
 
     // Badge contatore carrello nella navbar
@@ -59,11 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // 3. FUNZIONI DI UTILITÀ E PERSISTENZA
     // ==========================================================================
     function saveCart() {
-        localStorage.setItem("cart", JSON.stringify(cart));
-    }
-
-    function saveFavorites() {
-        localStorage.setItem("favorites", JSON.stringify(favorites));
+        sessionStorage.setItem("cart", JSON.stringify(cart));
     }
 
     function updateBadge() {
@@ -72,11 +56,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // ==========================================================================
-    // 4. LOGICA CARRELLO E PREFERITI
+    // 4. LOGICA CARRELLO
     // ==========================================================================
     /**
-     * Simula l'aggiunta di un prodotto al carrello mediante alert() (Par. 3.8)
-     * e aggiorna lo stato locale per sincronizzare il badge e la pagina carrello.
+     * Simula l'aggiunta di un prodotto al carrello mediante alert()
+     * e aggiorna lo stato locale per sincronizzare il badge.
      * @param {number} productId
      */
     function addToCart(productId) {
@@ -101,19 +85,8 @@ document.addEventListener("DOMContentLoaded", function () {
         saveCart();
         updateBadge();
 
-        // Messaggio di conferma richiesto dalla specifica (Par. 3.8)
+        // Messaggio di conferma richiesto dalla specifica
         alert('Prodotto aggiunto al carrello!\nNome: ' + product.name + '\nID: ' + product.id);
-    }
-
-    function toggleFavorite(productId) {
-        const index = favorites.indexOf(productId);
-        if (index === -1) {
-            favorites.push(productId);
-        } else {
-            favorites.splice(index, 1);
-        }
-        saveFavorites();
-        filterProducts();
     }
 
     // ==========================================================================
@@ -183,9 +156,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let productsHtml = "";
         items.forEach(function (item) {
-            const isFav = favorites.includes(item.id);
-            const favClass = isFav ? "btn-fav is-favorite" : "btn-fav";
-            const favText = isFav ? "❤ Nei Preferiti" : "♡ Preferito";
 
             // Normalizza la stringa per la classe CSS (es. "In arrivo" -> "in-arrivo")
             const availClass = item.availability.toLowerCase().replace(/\s+/g, "-");
@@ -200,7 +170,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 '<p class="price">€ ' + item.price.toFixed(2) + '</p>' +
                 '<div class="card-actions">' +
                 '<button type="button" class="btn-detail clickable-detail">Dettagli</button>' +
-                '<button type="button" class="' + favClass + '">' + favText + '</button>' +
                 '<button type="button" class="btn-add">Aggiungi al carrello</button>' +
                 '</div>' +
                 '</article>';
@@ -217,19 +186,15 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!Array.isArray(productList)) return;
 
         const searchTerm = $searchInput.val().trim().toLowerCase();
-        const onlyFavorites = $favoritesToggle.is(":checked");
         const sortCriteria = $sortFilter.val();
 
         // Ricerca per parole chiave su nome, descrizione e marca (Par. 3.5)
         let result = productList.filter(function (product) {
-            const matchesSearch =
+            return (
                 product.name.toLowerCase().includes(searchTerm) ||
                 product.desc.toLowerCase().includes(searchTerm) ||
-                product.brand.toLowerCase().includes(searchTerm);
-
-            const matchesFav = !onlyFavorites || favorites.includes(product.id);
-
-            return matchesSearch && matchesFav;
+                product.brand.toLowerCase().includes(searchTerm)
+            );
         });
 
         // Ordinamento client-side (Par. 3.6)
@@ -249,7 +214,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function resetFilters() {
         $searchInput.val("");
         $sortFilter.val("default");
-        $favoritesToggle.prop("checked", false);
         filterProducts();
     }
 
@@ -278,13 +242,6 @@ document.addEventListener("DOMContentLoaded", function () {
             showProductInfo(product);
         });
 
-        // Tasto Preferiti
-        $products.find(".btn-fav").on("click", function () {
-            const card = $(this).closest(".product-card");
-            const productId = parseInt(card.data("id"), 10);
-            toggleFavorite(productId);
-        });
-
         // Aggiungi al carrello da scheda
         $products.find(".btn-add").on("click", function () {
             const card = $(this).closest(".product-card");
@@ -311,7 +268,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Ordinamento e reset filtri
     $sortFilter.on("change", filterProducts);
-    $favoritesToggle.on("change", filterProducts);
     btnResetFilters.addEventListener("click", resetFilters);
 
     // Azione "Aggiungi al carrello" dall'interno della Modale
