@@ -17,31 +17,24 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // ==========================================================================
-    // 2. RIFERIMENTI DOM (Vanilla & jQuery)
+    // 2. RIFERIMENTI DOM (jQuery)
     // ==========================================================================
-    const productsContainer = document.getElementById("products");
-    const $products = $(productsContainer);
+    const $products = $("#products");
 
     // Controlli Filtri e Ricerca
     const $searchForm = $("#search-form");
     const $searchInput = $("#search-input");
     const $categoryFilter = $("#category-filter");
     const $sortFilter = $("#sort-filter");
-    const btnResetFilters = document.getElementById("btn-reset-filters");
+    const $btnResetFilters = $("#btn-reset-filters");
 
     // Badge contatore carrello nella navbar
     const $cartBadge = $("#cart-badge");
 
     // Finestra Modale Dettagli
-    const modalInfo = document.getElementById("modal-info");
-    const modalInfoTitle = document.getElementById("modal-info-title");
-    const modalInfoImg = document.getElementById("modal-info-img");
-    const modalInfoBrand = document.getElementById("modal-info-brand");
-    const modalInfoDesc = document.getElementById("modal-info-desc");
-    const modalInfoPrice = document.getElementById("modal-info-price");
-    const modalInfoStock = document.getElementById("modal-info-stock");
+    const $modalInfo = $("#modal-info");
     const $btnModalAdd = $("#btn-modal-add");
-    const btnCloseInfo = document.getElementById("btn-close-info");
+    const $btnCloseInfo = $("#btn-close-info");
 
     // ==========================================================================
     // 3. FUNZIONI DI UTILITÀ E PERSISTENZA
@@ -99,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     /**
-     * Carica i prodotti della categoria scelta tramite AJAX (Par. 3.2 e 3.3)
+     * Carica i prodotti della categoria scelta tramite AJAX
      * @param {string} categoryKey
      */
     function loadCategoryXML(categoryKey) {
@@ -139,24 +132,24 @@ document.addEventListener("DOMContentLoaded", function () {
     // 6. RENDERING, RICERCA E ORDINAMENTO
     // ==========================================================================
     /**
-     * Genera dinamicamente le schede prodotto (Par. 3.4)
+     * Genera dinamicamente le schede prodotto
      * @param {Array} items
      */
     function renderProducts(items) {
-        productsContainer.innerHTML = "";
+        $products.empty();
 
         if (!items || items.length === 0) {
-            productsContainer.innerHTML =
+            $products.html(
                 '<div class="no-results">' +
                 '<h4>Nessun prodotto trovato</h4>' +
                 '<p>Nessun articolo corrisponde ai filtri o alla ricerca impostata.</p>' +
-                '</div>';
+                '</div>'
+            );
             return;
         }
 
         let productsHtml = "";
         items.forEach(function (item) {
-
             // Normalizza la stringa per la classe CSS (es. "In arrivo" -> "in-arrivo")
             const availClass = item.availability.toLowerCase().replace(/\s+/g, "-");
 
@@ -175,12 +168,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 '</article>';
         });
 
-        productsContainer.innerHTML = productsHtml;
-        attachProductCardEvents();
+        $products.html(productsHtml);
     }
 
     /**
-     * Ricerca per parole chiave (nome, descrizione, marca) e ordinamento client-side (Par. 3.5 e 3.6)
+     * Ricerca per parole chiave (nome, descrizione, marca) e ordinamento client-side
      */
     function filterProducts() {
         if (!Array.isArray(productList)) return;
@@ -197,7 +189,7 @@ document.addEventListener("DOMContentLoaded", function () {
             );
         });
 
-        // Ordinamento client-side (Par. 3.6)
+        // Ordinamento client-side
         if (sortCriteria === "price-asc") {
             result.sort(function (a, b) { return a.price - b.price; });
         } else if (sortCriteria === "price-desc") {
@@ -218,36 +210,26 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // ==========================================================================
-    // 7. MODALE DETTAGLI PRODOTTO (Par. 3.7)
+    // 7. MODALE DETTAGLI PRODOTTO (jQuery + dialog nativo)
     // ==========================================================================
     function showProductInfo(product) {
         if (!product) return;
         currentModalProductId = product.id;
-        modalInfoTitle.textContent = product.name;
-        modalInfoImg.src = product.image;
-        modalInfoImg.alt = product.name;
-        modalInfoBrand.textContent = product.brand;
-        modalInfoDesc.textContent = product.desc;
-        modalInfoPrice.textContent = product.price.toFixed(2);
-        modalInfoStock.textContent = product.availability;
-        modalInfo.showModal();
+
+        // Popolamento dinamico tramite jQuery
+        $("#modal-info-title").text(product.name);
+        $("#modal-info-img").attr("src", product.image).attr("alt", product.name);
+        $("#modal-info-brand").text(product.brand);
+        $("#modal-info-desc").text(product.desc);
+        $("#modal-info-price").text(product.price.toFixed(2));
+        $("#modal-info-stock").text(product.availability);
+
+        // Apertura della modale
+        $modalInfo[0].showModal();
     }
 
-    function attachProductCardEvents() {
-        // Clic su Titolo, Immagine o tasto Dettagli per visualizzare la modale (Par. 3.7)
-        $products.find(".clickable-detail").on("click", function () {
-            const card = $(this).closest(".product-card");
-            const productId = parseInt(card.data("id"), 10);
-            const product = productList.find(p => p.id === productId);
-            showProductInfo(product);
-        });
-
-        // Aggiungi al carrello da scheda
-        $products.find(".btn-add").on("click", function () {
-            const card = $(this).closest(".product-card");
-            const productId = parseInt(card.data("id"), 10);
-            addToCart(productId);
-        });
+    function closeModalInfo() {
+        $modalInfo[0].close();
     }
 
     // ==========================================================================
@@ -260,7 +242,7 @@ document.addEventListener("DOMContentLoaded", function () {
         filterProducts();
     });
 
-    // Selezione Categoria via AJAX (Par. 3.2)
+    // Selezione Categoria via AJAX
     $categoryFilter.on("change", function () {
         const selectedCat = $(this).val();
         loadCategoryXML(selectedCat);
@@ -268,24 +250,37 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Ordinamento e reset filtri
     $sortFilter.on("change", filterProducts);
-    btnResetFilters.addEventListener("click", resetFilters);
+    $btnResetFilters.on("click", resetFilters);
+
+    // Clic su Titolo, Immagine o tasto Dettagli per visualizzare la modale (Event Delegation)
+    $products.on("click", ".clickable-detail", function () {
+        const card = $(this).closest(".product-card");
+        const productId = parseInt(card.data("id"), 10);
+        const product = productList.find(p => p.id === productId);
+        showProductInfo(product);
+    });
+
+    // Aggiungi al carrello da scheda (Event Delegation)
+    $products.on("click", ".btn-add", function () {
+        const card = $(this).closest(".product-card");
+        const productId = parseInt(card.data("id"), 10);
+        addToCart(productId);
+    });
 
     // Azione "Aggiungi al carrello" dall'interno della Modale
     $btnModalAdd.on("click", function () {
         if (currentModalProductId !== null) {
             addToCart(currentModalProductId);
-            modalInfo.close();
+            closeModalInfo();
         }
     });
 
-    // Chiusura Modale dal pulsante
-    btnCloseInfo.addEventListener("click", function () {
-        modalInfo.close();
-    });
+    // Chiusura Modale dal pulsante "Chiudi"
+    $btnCloseInfo.on("click", closeModalInfo);
 
-    // Chiusura al clic su area esterna alla finestra (backdrop)
-    modalInfo.addEventListener("click", function (event) {
-        const rect = modalInfo.getBoundingClientRect();
+    // Chiusura al clic sull'area esterna (backdrop)
+    $modalInfo.on("click", function (event) {
+        const rect = this.getBoundingClientRect();
         const isInDialog = (
             rect.top <= event.clientY &&
             event.clientY <= rect.top + rect.height &&
@@ -293,7 +288,7 @@ document.addEventListener("DOMContentLoaded", function () {
             event.clientX <= rect.left + rect.width
         );
         if (!isInDialog) {
-            modalInfo.close();
+            closeModalInfo();
         }
     });
 

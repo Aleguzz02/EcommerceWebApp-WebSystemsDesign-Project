@@ -8,7 +8,7 @@
         <descrizione>Giacca tecnica leggera con cappuccio regolabile, antivento e resistente all'acqua.</descrizione>
         <prezzo>79.99</prezzo>
         <marca>NordicPeak</marca>
-        <immagine>https://placehold.co/400x300?text=Giacca+Vento</immagine>
+        <immagine>immagini/giacca-vento.jpg</immagine>
         <disponibilita>Disponibile</disponibilita>
     </prodotto>
     <prodotto>
@@ -17,7 +17,7 @@
         <descrizione>Felpa in cotone felpato morbido con tasca a marsupio e polsini elasticizzati.</descrizione>
         <prezzo>39.50</prezzo>
         <marca>UrbanStyle</marca>
-        <immagine>https://placehold.co/400x300?text=Felpa+Cappuccio</immagine>
+        <immagine>immagini/felpa-cappuccio.jpg</immagine>
         <disponibilita>Disponibile</disponibilita>
     </prodotto>
     <prodotto>
@@ -26,16 +26,16 @@
         <descrizione>Pantaloni eleganti in cotone elasticizzato, adatti sia per lavoro che per tempo libero.</descrizione>
         <prezzo>49.00</prezzo>
         <marca>ClassicMan</marca>
-        <immagine>https://placehold.co/400x300?text=Pantaloni+Chino</immagine>
+        <immagine>immagini/pantaloni-chino.jpg</immagine>
         <disponibilita>In arrivo</disponibilita>
     </prodotto>
     <prodotto>
         <id>204</id>
         <nome>T-Shirt Cotone Organico</nome>
-        <descrizione>Maglietta girocollo a tinta unita realizzata in 100% cotone biologico traspirante.</descrizione>
+        <descrizione>Maglietta girocollo tinta unita realizzata in 100% cotone biologico traspirante.</descrizione>
         <prezzo>15.00</prezzo>
         <marca>EcoWear</marca>
-        <immagine>https://placehold.co/400x300?text=T-Shirt+Cotone</immagine>
+        <immagine>immagini/tshirt-cotone.jpg</immagine>
         <disponibilita>Disponibile</disponibilita>
     </prodotto>
     <prodotto>
@@ -44,7 +44,7 @@
         <descrizione>Calzature sportive traspiranti con suola ammortizzata per massima comodità durante la corsa.</descrizione>
         <prezzo>65.00</prezzo>
         <marca>SpeedStep</marca>
-        <immagine>https://placehold.co/400x300?text=Scarpe+Running</immagine>
+        <immagine>immagini/scarpe-running.jpg</immagine>
         <disponibilita>Esaurito</disponibilita>
     </prodotto>
 </prodotti>

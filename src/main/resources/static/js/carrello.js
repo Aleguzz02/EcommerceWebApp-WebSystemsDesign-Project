@@ -38,17 +38,15 @@ $(document).ready(function() {
         const item = cartItems.find(i => i.productId === productId);
         if (!item) return;
 
+        // Se l'utente tenta di scendere sotto 1, ignora l'azione
+        if (amount < 0 && item.quantity <= 1) {
+            return;
+        }
+
         item.quantity += amount;
 
-        // Mostra alert come richiesto dalle specifiche
         alert("Modificata la quantità del prodotto: " + item.name + " (Nuova quantità: " + item.quantity + ")");
-
-        if (item.quantity <= 0) {
-            // Se la quantità scende a zero o meno, rimuove l'articolo (silenzia il secondo alert)
-            removeFromCart(productId, false);
-        } else {
-            renderCart();
-        }
+        renderCart();
     }
 
     /**
@@ -103,7 +101,7 @@ $(document).ready(function() {
                     <div class="cart-item-quantity">
                         <label>Quantità:</label>
                         <div class="qty-stepper">
-                            <button type="button" class="btn-qty-minus" data-id="${item.productId}">-</button>
+                            <button type="button" class="btn-qty-minus" data-id="${item.productId}" ${item.quantity <= 1 ? "disabled" : ""}>-</button>
                             <span>${item.quantity}</span>
                             <button type="button" class="btn-qty-plus" data-id="${item.productId}">+</button>
                         </div>

@@ -8,7 +8,7 @@
         <descrizione>Capolavoro della fantascienza ambientato sul pianeta desertico Arrakis, scritto da Frank Herbert.</descrizione>
         <prezzo>18.50</prezzo>
         <marca>Fanucci Editore</marca>
-        <immagine>https://placehold.co/400x300?text=Dune</immagine>
+        <immagine>immagini/dune.jpg</immagine>
         <disponibilita>Disponibile</disponibilita>
     </prodotto>
     <prodotto>
@@ -17,7 +17,7 @@
         <descrizione>Il celebre romanzo distopico di George Orwell sulla sorveglianza e il controllo del Grande Fratello.</descrizione>
         <prezzo>12.00</prezzo>
         <marca>Mondadori</marca>
-        <immagine>https://placehold.co/400x300?text=1984</immagine>
+        <immagine>immagini/1984.jpg</immagine>
         <disponibilita>Disponibile</disponibilita>
     </prodotto>
     <prodotto>
@@ -26,7 +26,7 @@
         <descrizione>L'epica saga fantasy creata da J.R.R. Tolkien, raccolta in edizione integrale con mappe illustrate.</descrizione>
         <prezzo>32.00</prezzo>
         <marca>Bompiani</marca>
-        <immagine>https://placehold.co/400x300?text=Signore+Anelli</immagine>
+        <immagine>immagini/signore-anelli.jpg</immagine>
         <disponibilita>In arrivo</disponibilita>
     </prodotto>
     <prodotto>
@@ -35,7 +35,7 @@
         <descrizione>Il primo capitolo del monumentale ciclo galattico di Isaac Asimov sulla psicostoria.</descrizione>
         <prezzo>14.50</prezzo>
         <marca>Mondadori</marca>
-        <immagine>https://placehold.co/400x300?text=Fondazione</immagine>
+        <immagine>immagini/fondazione.jpg</immagine>
         <disponibilita>Disponibile</disponibilita>
     </prodotto>
     <prodotto>
@@ -44,7 +44,7 @@
         <descrizione>Intrighi e battaglie per il trono dei Sette Regni nel romanzo d'esordio di George R.R. Martin.</descrizione>
         <prezzo>19.90</prezzo>
         <marca>Mondadori</marca>
-        <immagine>https://placehold.co/400x300?text=Ghiaccio+e+Fuoco</immagine>
+        <immagine>immagini/ghiaccio-fuoco.jpg</immagine>
         <disponibilita>Disponibile</disponibilita>
     </prodotto>
 </prodotti>

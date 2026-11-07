@@ -111,6 +111,14 @@ select:focus {
     font-weight: bold;
 }
 
+.qty-stepper button:disabled {
+    background: transparent !important;
+    border: none !important;
+    color: var(--text-muted) !important;
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
 .qty-stepper span {
     min-width: 28px;
     text-align: center;

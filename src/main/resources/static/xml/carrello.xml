@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<carrello>
+<carrello xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="carrello-schema.xsd">
     <elemento>
         <idProdotto>1</idProdotto>
         <nome>Smartphone Example</nome>
         <prezzoUnitario>499.99</prezzoUnitario>
         <quantita>1</quantita>
-        <immagine>https://placehold.co/400x300?text=Smartphone+Example</immagine>
+        <immagine>immagini/smartphone.jpg</immagine>
     </elemento>
     <elemento>
         <idProdotto>2</idProdotto>
         <nome>Cuffie Wireless</nome>
         <prezzoUnitario>89.90</prezzoUnitario>
         <quantita>2</quantita>
-        <immagine>https://placehold.co/400x300?text=Cuffie+Wireless</immagine>
+        <immagine>immagini/cuffie.jpg</immagine>
     </elemento>
 </carrello>
