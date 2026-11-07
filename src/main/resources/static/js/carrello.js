@@ -75,7 +75,7 @@ $(document).ready(function() {
         $cartList.empty();
 
         if (cartItems.length === 0) {
-            $cartList.html('<p class="cart-empty-msg" style="padding: 30px 0; text-align: center; color: var(--text-muted);">Il tuo carrello è vuoto.</p>');
+            $cartList.html('<p class="cart-empty-msg">Il tuo carrello è vuoto.</p>');
             $totalItems.text("0");
             $cartTotal.text("0.00");
             $btnCheckout.prop("disabled", true);

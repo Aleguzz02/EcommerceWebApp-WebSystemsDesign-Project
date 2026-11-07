@@ -180,7 +180,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const searchTerm = $searchInput.val().trim().toLowerCase();
         const sortCriteria = $sortFilter.val();
 
-        // Ricerca per parole chiave su nome, descrizione e marca (Par. 3.5)
+        // Ricerca per parole chiave su nome, descrizione e marca
         let result = productList.filter(function (product) {
             return (
                 product.name.toLowerCase().includes(searchTerm) ||
