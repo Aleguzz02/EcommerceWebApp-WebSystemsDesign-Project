@@ -2,18 +2,18 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
     <!-- ==================== TIPI SEMPLICI ==================== -->
-    <xs:simpleType name="ProductIdType">
+    <xs:simpleType name="IdProdottoType">
         <xs:restriction base="xs:positiveInteger"/>
     </xs:simpleType>
 
-    <xs:simpleType name="PriceType">
+    <xs:simpleType name="PrezzoUnitarioType">
         <xs:restriction base="xs:decimal">
-            <xs:minInclusive value="0"/>
+            <xs:minInclusive value="0.01"/>
             <xs:fractionDigits value="2"/>
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:simpleType name="QuantityType">
+    <xs:simpleType name="QuantitaType">
         <xs:restriction base="xs:positiveInteger">
             <xs:minInclusive value="1"/>
             <xs:maxInclusive value="99"/>
@@ -26,33 +26,34 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:simpleType name="ImageUrlType">
-        <xs:restriction base="xs:anyURI"/>
+    <xs:simpleType name="ImmagineType">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+        </xs:restriction>
     </xs:simpleType>
 
     <!-- ==================== TIPI COMPLESSI ==================== -->
-    <xs:complexType name="CartItemType">
+    <xs:complexType name="ElementoType">
         <xs:sequence>
-            <xs:element name="name"      type="NonEmptyString"/>
-            <xs:element name="price"     type="PriceType"/>
-            <xs:element name="quantity"  type="QuantityType"/>
-            <xs:element name="image"     type="ImageUrlType"/>
-            <xs:element name="desc"      type="NonEmptyString" minOccurs="0"/>
+            <xs:element name="idProdotto"     type="IdProdottoType"/>
+            <xs:element name="nome"           type="NonEmptyString"/>
+            <xs:element name="prezzoUnitario" type="PrezzoUnitarioType"/>
+            <xs:element name="quantita"       type="QuantitaType"/>
+            <xs:element name="immagine"       type="ImmagineType"/>
         </xs:sequence>
-        <xs:attribute name="productId" type="ProductIdType" use="required"/>
     </xs:complexType>
 
-    <xs:complexType name="CartType">
+    <xs:complexType name="CarrelloType">
         <xs:sequence>
-            <xs:element name="item" type="CartItemType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="elemento" type="ElementoType" minOccurs="2" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 
     <!-- ==================== ELEMENTO RADICE ==================== -->
-    <xs:element name="cart" type="CartType">
-        <xs:unique name="uniqueCartItem">
-            <xs:selector xpath="item"/>
-            <xs:field xpath="@productId"/>
+    <xs:element name="carrello" type="CarrelloType">
+        <xs:unique name="uniqueIdProdotto">
+            <xs:selector xpath="elemento"/>
+            <xs:field xpath="idProdotto"/>
         </xs:unique>
     </xs:element>
 

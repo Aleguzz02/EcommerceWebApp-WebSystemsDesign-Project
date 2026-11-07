@@ -1,46 +1,34 @@
-document.addEventListener("DOMContentLoaded", () => {
+$(document).ready(function() {
     // --- STATO DEL CARRELLO ---
     let cartItems = [];
 
-    // --- RIFERIMENTI DOM ---
-    const cartList = document.getElementById("cart-list");
-    const totalItemsSpan = document.getElementById("total-items");
-    const cartTotalSpan = document.getElementById("cart-total");
-    const btnCheckout = document.getElementById("btn-checkout");
-
     /**
-     * Carica i dati iniziali del carrello dal file XML
+     * Carica i dati iniziali del carrello dal file XML usando jQuery AJAX
      */
     function loadCartFromXML(xmlUrl) {
-        fetch(xmlUrl)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Errore di rete durante il caricamento del carrello");
-                }
-                return response.text();
-            })
-            .then(xmlString => {
-                const parser = new DOMParser();
-                const xmlDoc = parser.parseFromString(xmlString, "application/xml");
-                const items = xmlDoc.querySelectorAll("item");
-
-                cartItems = [];
-                items.forEach(node => {
-                    cartItems.push({
-                        productId: parseInt(node.getAttribute("productId"), 10),
-                        name: node.querySelector("name").textContent,
-                        price: parseFloat(node.querySelector("price").textContent),
-                        quantity: parseInt(node.querySelector("quantity").textContent, 10),
-                        image: node.querySelector("image").textContent,
-                        desc: node.querySelector("desc") ? node.querySelector("desc").textContent : ""
-                    });
+        $.ajax({
+            type: "GET",
+            url: xmlUrl,
+            dataType: "xml"
+        }).done(function(xmlDoc) {
+            cartItems = [];
+            // Naviga l'XML per estrarre i dati
+            $(xmlDoc).find("elemento").each(function() {
+                const $element = $(this);
+                cartItems.push({
+                    productId: parseInt($element.find("idProdotto").text(), 10),
+                    name: $element.find("nome").text(),
+                    price: parseFloat($element.find("prezzoUnitario").text()),
+                    quantity: parseInt($element.find("quantita").text(), 10),
+                    image: $element.find("immagine").text(),
+                    // Verifica se esiste un tag <desc> aggiuntivo (non obbligatorio da XML)
+                    desc: $element.find("desc").length ? $element.find("desc").text() : ""
                 });
-
-                renderCart();
-            })
-            .catch(() => {
-                cartList.innerHTML = '<p class="cart-empty-msg">Impossibile caricare i dati del carrello.</p>';
             });
+            renderCart();
+        }).fail(function() {
+            $("#cart-list").html('<p class="cart-empty-msg">Impossibile caricare i dati del carrello.</p>');
+        });
     }
 
     /**
@@ -52,8 +40,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         item.quantity += amount;
 
+        // Mostra alert come richiesto dalle specifiche
+        alert("Modificata la quantità del prodotto: " + item.name + " (Nuova quantità: " + item.quantity + ")");
+
         if (item.quantity <= 0) {
-            removeFromCart(productId);
+            // Se la quantità scende a zero o meno, rimuove l'articolo (silenzia il secondo alert)
+            removeFromCart(productId, false);
         } else {
             renderCart();
         }
@@ -62,7 +54,13 @@ document.addEventListener("DOMContentLoaded", () => {
     /**
      * Rimuove un articolo dal carrello
      */
-    function removeFromCart(productId) {
+    function removeFromCart(productId, showAlert = true) {
+        const item = cartItems.find(i => i.productId === productId);
+        if (showAlert && item) {
+            // Mostra alert come richiesto dalle specifiche
+            alert("Prodotto rimosso dal carrello: " + item.name + " (ID: " + productId + ")");
+        }
+
         cartItems = cartItems.filter(i => i.productId !== productId);
         renderCart();
     }
@@ -71,13 +69,18 @@ document.addEventListener("DOMContentLoaded", () => {
      * Genera dinamicamente le righe del carrello e aggiorna i totali
      */
     function renderCart() {
-        cartList.innerHTML = "";
+        const $cartList = $("#cart-list");
+        const $totalItems = $("#total-items");
+        const $cartTotal = $("#cart-total");
+        const $btnCheckout = $("#btn-checkout");
+
+        $cartList.empty();
 
         if (cartItems.length === 0) {
-            cartList.innerHTML = '<p class="cart-empty-msg" style="padding: 30px 0; text-align: center; color: var(--text-muted);">Il tuo carrello è vuoto.</p>';
-            totalItemsSpan.textContent = "0";
-            cartTotalSpan.textContent = "0.00";
-            if (btnCheckout) btnCheckout.disabled = true;
+            $cartList.html('<p class="cart-empty-msg" style="padding: 30px 0; text-align: center; color: var(--text-muted);">Il tuo carrello è vuoto.</p>');
+            $totalItems.text("0");
+            $cartTotal.text("0.00");
+            $btnCheckout.prop("disabled", true);
             return;
         }
 
@@ -89,40 +92,38 @@ document.addEventListener("DOMContentLoaded", () => {
             totalQty += item.quantity;
             grandTotal += subtotal;
 
-            const article = document.createElement("article");
-            article.className = "cart-item";
-            article.dataset.productId = item.productId;
-
-            article.innerHTML = `
-                <img src="${item.image}" alt="${item.name}">
-                <div class="cart-item-details">
-                    <h3>${item.name}</h3>
-                    <p class="desc">${item.desc}</p>
-                    <p class="unit-price">Prezzo unitario: € <span>${item.price.toFixed(2)}</span></p>
-                </div>
-                <div class="cart-item-quantity">
-                    <label>Quantità:</label>
-                    <div class="qty-stepper">
-                        <button type="button" class="btn-qty-minus" data-id="${item.productId}">-</button>
-                        <span>${item.quantity}</span>
-                        <button type="button" class="btn-qty-plus" data-id="${item.productId}">+</button>
+            const articleHTML = `
+                <article class="cart-item" data-product-id="${item.productId}">
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="cart-item-details">
+                        <h3>${item.name}</h3>
+                        <p class="desc">${item.desc}</p>
+                        <p class="unit-price">Prezzo unitario: € <span>${item.price.toFixed(2)}</span></p>
                     </div>
-                </div>
-                <div class="cart-item-actions">
-                    <div class="cart-item-subtotal">
-                        <p>Subtotale: <strong>€ <span class="subtotal-val">${subtotal.toFixed(2)}</span></strong></p>
+                    <div class="cart-item-quantity">
+                        <label>Quantità:</label>
+                        <div class="qty-stepper">
+                            <button type="button" class="btn-qty-minus" data-id="${item.productId}">-</button>
+                            <span>${item.quantity}</span>
+                            <button type="button" class="btn-qty-plus" data-id="${item.productId}">+</button>
+                        </div>
                     </div>
-                    <button type="button" class="btn-remove-item" data-id="${item.productId}">Rimuovi</button>
-                </div>
+                    <div class="cart-item-actions">
+                        <div class="cart-item-subtotal">
+                            <p>Subtotale: <strong>€ <span class="subtotal-val">${subtotal.toFixed(2)}</span></strong></p>
+                        </div>
+                        <button type="button" class="btn-remove-item" data-id="${item.productId}">Rimuovi</button>
+                    </div>
+                </article>
             `;
 
-            cartList.appendChild(article);
+            $cartList.append(articleHTML);
         });
 
         // Aggiornamento riepilogo laterale
-        totalItemsSpan.textContent = totalQty;
-        cartTotalSpan.textContent = grandTotal.toFixed(2);
-        if (btnCheckout) btnCheckout.disabled = false;
+        $totalItems.text(totalQty);
+        $cartTotal.text(grandTotal.toFixed(2));
+        $btnCheckout.prop("disabled", false);
 
         attachEvents();
     }
@@ -131,25 +132,20 @@ document.addEventListener("DOMContentLoaded", () => {
      * Associa gli ascoltatori agli elementi interattivi (+, -, Rimuovi)
      */
     function attachEvents() {
-        cartList.querySelectorAll(".btn-qty-plus").forEach(btn => {
-            btn.addEventListener("click", () => {
-                changeQuantity(parseInt(btn.dataset.id, 10), 1);
-            });
+        // Disattiva gli handler precedenti per evitare trigger multipli, poi li riassocia
+        $(".btn-qty-plus").off("click").on("click", function() {
+            changeQuantity(parseInt($(this).data("id"), 10), 1);
         });
 
-        cartList.querySelectorAll(".btn-qty-minus").forEach(btn => {
-            btn.addEventListener("click", () => {
-                changeQuantity(parseInt(btn.dataset.id, 10), -1);
-            });
+        $(".btn-qty-minus").off("click").on("click", function() {
+            changeQuantity(parseInt($(this).data("id"), 10), -1);
         });
 
-        cartList.querySelectorAll(".btn-remove-item").forEach(btn => {
-            btn.addEventListener("click", () => {
-                removeFromCart(parseInt(btn.dataset.id, 10));
-            });
+        $(".btn-remove-item").off("click").on("click", function() {
+            removeFromCart(parseInt($(this).data("id"), 10));
         });
     }
 
-    // Caricamento iniziale dal file XML
-    loadCartFromXML("data/cart-data.xml");
+    // Avvia il caricamento iniziale dal file XML
+    loadCartFromXML("xml/carrello.xml");
 });

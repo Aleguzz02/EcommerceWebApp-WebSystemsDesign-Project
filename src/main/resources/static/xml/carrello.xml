@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<carrello>
+    <elemento>
+        <idProdotto>1</idProdotto>
+        <nome>Smartphone Example</nome>
+        <prezzoUnitario>499.99</prezzoUnitario>
+        <quantita>1</quantita>
+        <immagine>https://placehold.co/400x300?text=Smartphone+Example</immagine>
+    </elemento>
+    <elemento>
+        <idProdotto>2</idProdotto>
+        <nome>Cuffie Wireless</nome>
+        <prezzoUnitario>89.90</prezzoUnitario>
+        <quantita>2</quantita>
+        <immagine>https://placehold.co/400x300?text=Cuffie+Wireless</immagine>
+    </elemento>
+</carrello>
