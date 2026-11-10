@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const $cartBadge = $("#cart-badge");
 
     // Finestra Modale Dettagli
-    const $modalInfo = $("#modal-info");
+    const $modalOverlay = $("#modal-overlay");
     const $btnModalAdd = $("#btn-modal-add");
     const $btnCloseInfo = $("#btn-close-info");
 
@@ -210,7 +210,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // ==========================================================================
-    // 7. MODALE DETTAGLI PRODOTTO (jQuery + dialog nativo)
+    // 7. MODALE DETTAGLI PRODOTTO (jQuery)
     // ==========================================================================
     function showProductInfo(product) {
         if (!product) return;
@@ -224,12 +224,11 @@ document.addEventListener("DOMContentLoaded", function () {
         $("#modal-info-price").text(product.price.toFixed(2));
         $("#modal-info-stock").text(product.availability);
 
-        // Apertura della modale
-        $modalInfo[0].showModal();
+        $modalOverlay.css("display", "flex");
     }
 
     function closeModalInfo() {
-        $modalInfo[0].close();
+        $modalOverlay.css("display", "none");
     }
 
     // ==========================================================================
@@ -279,15 +278,16 @@ document.addEventListener("DOMContentLoaded", function () {
     $btnCloseInfo.on("click", closeModalInfo);
 
     // Chiusura al clic sull'area esterna (backdrop)
-    $modalInfo.on("click", function (event) {
-        const rect = this.getBoundingClientRect();
-        const isInDialog = (
-            rect.top <= event.clientY &&
-            event.clientY <= rect.top + rect.height &&
-            rect.left <= event.clientX &&
-            event.clientX <= rect.left + rect.width
-        );
-        if (!isInDialog) {
+    $modalOverlay.on("click", function (event) {
+        // Verifica se il click è avvenuto esattamente sull'overlay scuro e non sul div figlio
+        if ($(event.target).is($modalOverlay)) {
+            closeModalInfo();
+        }
+    });
+
+    // Chiusura premendo il tasto Esc
+    $(document).on("keydown", function(event) {
+        if (event.key === "Escape" && $modalOverlay.is(":visible")) {
             closeModalInfo();
         }
     });

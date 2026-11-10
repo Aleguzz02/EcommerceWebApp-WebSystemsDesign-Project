@@ -20,9 +20,7 @@ $(document).ready(function() {
                     name: $element.find("nome").text(),
                     price: parseFloat($element.find("prezzoUnitario").text()),
                     quantity: parseInt($element.find("quantita").text(), 10),
-                    image: $element.find("immagine").text(),
-                    // Verifica se esiste un tag <desc> aggiuntivo (non obbligatorio da XML)
-                    desc: $element.find("desc").length ? $element.find("desc").text() : ""
+                    image: $element.find("immagine").text()
                 });
             });
             renderCart();
@@ -38,10 +36,9 @@ $(document).ready(function() {
         const item = cartItems.find(i => i.productId === productId);
         if (!item) return;
 
-        // Se l'utente tenta di scendere sotto 1, ignora l'azione
-        if (amount < 0 && item.quantity <= 1) {
-            return;
-        }
+        // Se l'utente tenta di scendere sotto 1 o salire sopra 99, ignora l'azione
+        if (amount < 0 && item.quantity <= 1) return;
+        if (amount > 0 && item.quantity >= 99) return;
 
         item.quantity += amount;
 
@@ -95,7 +92,6 @@ $(document).ready(function() {
                     <img src="${item.image}" alt="${item.name}">
                     <div class="cart-item-details">
                         <h3>${item.name}</h3>
-                        <p class="desc">${item.desc}</p>
                         <p class="unit-price">Prezzo unitario: € <span>${item.price.toFixed(2)}</span></p>
                     </div>
                     <div class="cart-item-quantity">
